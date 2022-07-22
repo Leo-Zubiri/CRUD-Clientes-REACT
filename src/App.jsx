@@ -1,10 +1,11 @@
 import {BrowserRouter,Routes, Route} from 'react-router-dom';
 
 //Componentes
-import InicarSesion from './layout/IniciarSesion'
 import Layout from './layout/Layout'
 import Inicio from './pages/Inicio'
-import LoginForm from './pages/LoginForm';
+import NuevoCliente from './pages/NuevoCliente';
+import EditarCliente from './pages/EditarCliente';
+
 
 function App() {
 
@@ -12,13 +13,13 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route>
-          <Route path='/' element={<InicarSesion/>}> 
-            <Route index element={<LoginForm />}/>
-          </Route>
 
           {/** Usar Master page, para que siempre aparezca cierto componente en esa ruta */}
           <Route path='/clientes' element={<Layout/>}> 
             <Route index element={<Inicio />} />
+            {/** /clientes/nuevo */}
+            <Route path='nuevo' element={<NuevoCliente />} />
+            <Route path='editar/:id' element={<EditarCliente />} />
           </Route>
 
         </Route>

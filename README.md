@@ -38,3 +38,50 @@ const Layout = () => {
 
 export default Layout
 ```
+
+## **useLocation** de ReactRouter
+```js
+import {Outlet,Link,useLocation} from 'react-router-dom'
+
+...
+
+  const location = useLocation();
+// Object { pathname: "/clientes/nuevo", search: "", hash: "", state: null, key: "t6feuoku" }
+
+  const urlActual = location.pathname;
+
+```
+---
+
+## **Librerías para Formularios**
+
+- Formik con herramienta de validación 
+  - ``` npm i formik```
+- Yup con herramienta de validación
+  - ``` npm i yup```
+- React Hook Form
+
+<br>
+
+**Formik**
+```js
+import { Formik, Form, Field } from 'formik'
+
+...
+
+ <Formik>
+    <Form>
+
+        <div>
+            <label htmlFor='nombre'>Nombre: </label>
+            <Field 
+                id='nombre'
+                type='password'
+                className=''
+                placeholder=''
+            />
+        </div>
+        
+    </Form>
+</Formik>
+```
