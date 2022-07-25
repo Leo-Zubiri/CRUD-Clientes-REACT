@@ -3,10 +3,14 @@ import React from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 
+import { useNavigate } from 'react-router-dom'
+
 //Components
 import Alerta from './Alerta'
 
 const Formulario = () => {
+
+    const navigate = useNavigate();
 
     const nuevoClienteSchema = Yup.object().shape({
         nombre: Yup.string()
@@ -24,8 +28,24 @@ const Formulario = () => {
                 .typeError('Solo deben ser números'),
     })
 
-    const handleSubmit = (values) => { 
-        console.log(values);
+    const handleSubmit = async (values) => { 
+        try{
+            const url = 'http://localhost:4000/clientes'
+
+            const response = await fetch(url,{
+                method: 'POST',
+                body: JSON.stringify(values),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            const result = await response.json();
+            console.log(result)
+
+            navigate('/clientes')
+
+        } catch(error){console.log(error)}
     }
 
   return (
@@ -43,12 +63,15 @@ const Formulario = () => {
                 notas:'',
             }}
 
-            onSubmit={handleSubmit}
+            onSubmit={async (values,{resetForm}) => {
+                await handleSubmit(values);
+                resetForm();
+            }}
             validationSchema={nuevoClienteSchema}
         >
         {({errors,touched}) => {
 
-        return (<Form className='mt-10'>
+        return (<Form className='mt-10 '>
                 <div className='mb-4'>
                     <label
                         className='text-gray-800'
