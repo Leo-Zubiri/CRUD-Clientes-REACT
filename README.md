@@ -166,6 +166,29 @@ const nuevoSchema = Yup.object().shape({
     validationSchema={nuevoClienteSchema}
 >
 ```
+<br>
+
+---
+
+### **Cargar valores en formulario para editar**
+```js
+<Formik
+  initialValues={{
+      // Pregunta si cliente existe y tiene la propiedad nombre si es undefined ?? entonces
+      nombre: cliente?.nombre ?? "", ...
+  }}
+
+  // Habilita el renderizado por si datos tardan en llegar
+  enableReinitialize={true}
+
+  ...
+
+Formulario.defaultProps = {
+    cliente:{}
+}
+
+export default Formulario
+```
 ---
 
 ## **JSON Server**
@@ -224,3 +247,13 @@ const obtenerClientesAPI = async () => {
   }
 }
 ```
+---
+
+
+## **Spinner Cargando...**
+
+Elegir el spinner deseado 
+[Spinkit --->](https://tobiasahlin.com/spinkit/)
+
+Crear un componente y enlazar los estilos.
+
