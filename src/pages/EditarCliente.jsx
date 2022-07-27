@@ -15,7 +15,7 @@ const EditarCliente = () => {
     setCargando(true); 
     const obtenerClienteAPI = async () => {
       try {
-        const url = `http://localhost:4000/clientes/${id}`;
+        const url = `${import.meta.env.VITE_API_URL}/${id}`;
         const response = await fetch(url);
         const result = await response.json();
         setCliente(result);
@@ -35,9 +35,16 @@ const EditarCliente = () => {
     <>
       <h1 className='font-black text-4xl text-emerald-700'>Editar Cliente</h1>
       <p className='mt-3'>Actualiza datos de un cliente</p>
-      <Formulario 
-        cliente={cliente}
-      />
+
+      {cliente?.nombre ? (
+        <Formulario 
+          cargando={cargando}
+          cliente={cliente}
+        />
+      ):(
+        <p className='mt-10 font-bold text-xl text-red-700 uppercase'>Cliente ID no encontrado</p>
+      )}
+
     </>
   )
 }

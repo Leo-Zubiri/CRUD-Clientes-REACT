@@ -7,8 +7,9 @@ import { useNavigate } from 'react-router-dom'
 
 //Components
 import Alerta from './Alerta'
+import Spinner from '../components/Spinner';
 
-const Formulario = ({cliente}) => {
+const Formulario = ({cliente,cargando}) => {
 
     const navigate = useNavigate();
 
@@ -30,15 +31,28 @@ const Formulario = ({cliente}) => {
 
     const handleSubmit = async (values) => { 
         try{
-            const url = 'http://localhost:4000/clientes'
+            let response;
+            if(cliente.id){
+                const url = `${import.meta.env.VITE_API_URL}/${cliente.id}`
+                response = await fetch(url,{
+                    method: 'PUT',
+                    body: JSON.stringify(values),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+            } else {
+                const url = import.meta.env.VITE_API_URL
 
-            const response = await fetch(url,{
-                method: 'POST',
-                body: JSON.stringify(values),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
+                response = await fetch(url,{
+                    method: 'POST',
+                    body: JSON.stringify(values),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+            }
 
             const result = await response.json();
             console.log(result)
@@ -48,11 +62,12 @@ const Formulario = ({cliente}) => {
         } catch(error){console.log(error)}
     }
 
-  return (
+  return cargando ? <Spinner /> : (
     <div className='bg-white mt-10 px-5 py-10 rounded shadow-md
     md:w-3/4 mx-auto
     '>
-        <h1 className='text-gray-600 font-bold text-xl uppercase text-center'>Agregar Cliente</h1>
+        <h1 className='text-gray-600 font-bold text-xl uppercase text-center'
+        >{cliente?.nombre ? 'Editar Cliente' : 'Agregar Cliente'}</h1>
 
         <Formik
             initialValues={{
@@ -165,7 +180,7 @@ const Formulario = ({cliente}) => {
 
                 <input
                     type='submit'
-                    value='Agregar Cliente'
+                    value={cliente?.nombre ? 'Actualizar Cliente' : 'Agregar Cliente'}
                     className='mt-5 w-full bg-emerald-800 p-3 text-white uppercase font-bold text-lg'
                 />
             </Form>)

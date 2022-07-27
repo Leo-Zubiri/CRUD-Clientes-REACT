@@ -1,20 +1,12 @@
 {
   "clientes": [
     {
-      "nombre": "Zub",
+      "nombre": "Leo",
       "empresa": "ZUB",
       "email": "ASAS@outlo.com",
       "telefono": "833122122",
       "notas": "ASDADASD",
       "id": 1
-    },
-    {
-      "nombre": "Zub",
-      "empresa": "ZUB",
-      "email": "ASAS@outlo.com",
-      "telefono": "833122122",
-      "notas": "ASDADASD",
-      "id": 2
     },
     {
       "nombre": "Leoziel",
@@ -27,9 +19,9 @@
     {
       "nombre": "Elideth",
       "empresa": "ZUBWARE",
-      "email": "ASDA@CAS.COM",
+      "email": "CORREO@DOMINIO.COM",
       "telefono": "122131231",
-      "notas": "DASSADASDA",
+      "notas": "Notas generales",
       "id": 4
     }
   ]

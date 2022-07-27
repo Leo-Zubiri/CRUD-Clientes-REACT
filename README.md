@@ -1,3 +1,9 @@
+
+![](./src/img/doc/final1.png)
+![](./src/img/doc/final2.png)
+![](./src/img/doc/final3.png)
+---
+
 ## **React Router**
 
 ``` npm i react-router-dom```
@@ -171,6 +177,8 @@ const nuevoSchema = Yup.object().shape({
 ---
 
 ### **Cargar valores en formulario para editar**
+[Nullish coalescing operator (??)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing_operator)
+
 ```js
 <Formik
   initialValues={{
@@ -249,7 +257,32 @@ const obtenerClientesAPI = async () => {
 ```
 ---
 
+## **PUT**
+```JS
+const url = `http://localhost:4000/clientes/${cliente.id}`
+const response = await fetch(url,{
+    method: 'PUT',
+    body: JSON.stringify(values),
+    headers: {
+        'Content-Type': 'application/json'
+    }
+});
 
+const result = response.json();
+```
+
+---
+## **DELETE**
+
+```js
+const url = `http://localhost:4000/clientes/${id}`;
+const response = await fetch(url, {
+  method: 'DELETE'
+});
+
+await response.json();
+```
+---
 ## **Spinner Cargando...**
 
 Elegir el spinner deseado 
@@ -257,3 +290,43 @@ Elegir el spinner deseado
 
 Crear un componente y enlazar los estilos.
 
+---
+
+## **Publicar la API JSON Server**
+
+- Subir el proyecto a github
+- [Pagina My JSON Server](https://my-json-server.typicode.com/)
+- Pegar al link de My Json Server el repo del proyecto junto con el nombre de usario. Además el endpoint:
+  
+> https://my-json-server.typicode.com/Leo-Zubiri/CRUD-Clientes-REACT/clientes
+
+Con lo anterior se debe visualizar nuestra API JSON con los datos que vamos agregando. 
+
+<br>
+
+## **Enlazar el server en la nube**
+
+Se deben crear variables de entorno para indicar que localmente apunte a localhost y en producción apunte a la nube
+
+[Variables de Entorno en Vite](https://vitejs.dev/guide/env-and-mode.html)
+
+En este caso:
+1. Crear archivo .env.development.local y env.production.local en la raiz del proyecto
+2. Agregar variables con la sintaxis **VITE_** variable=123
+3. Para importar las variables de entorno **import.meta.env**
+
+## Para producción
+
+```npm run build```
+```npm run preview```  Para visualizar la build de distribución
+
+En el archivo de production:
+```VITE_API_URL=https://my-json-server.typicode.com/Leo-Zubiri/CRUD-Clientes-REACT/clientes```
+
+En el archivo de development:
+```VITE_API_URL=http://localhost:4000/clientes```
+
+Sustituir los valores de la API en todas las referencias: 
+```js
+const api_url = import.meta.env.VITE_API_URL
+```
